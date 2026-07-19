@@ -1,0 +1,35 @@
+name: Build DevEnv Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_version:
+        description: 'ghcr.io/openhands/agent-canvas 镜像版本号'
+        required: true
+        type: string
+        default: 'latest'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          load: true
+          build-args: |
+            BASE_VERSION=${{ inputs.base_version }}
+          tags: devenv:${{ inputs.base_version }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

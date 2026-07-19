@@ -1,0 +1,13 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        BASE_VERSION: ${BASE_VERSION:-latest}
+    image: devenv:${BASE_VERSION:-latest}
+    container_name: devenv
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
