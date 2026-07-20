@@ -2,7 +2,7 @@ ARG BASE_VERSION=latest
 FROM ghcr.io/openhands/agent-canvas:${BASE_VERSION}
 
 ENV UV_NO_CACHE=1
-
+ENV UV_LINK_MODE=copy
 ENV UV_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
 
 # Install Python 3.12 as default
