@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
     inputs:
       base_version:
-        description: 'ghcr.io/openhands/agent-canvas 镜像版本号'
+        description: "ghcr.io/openhands/agent-canvas 镜像版本号"
         required: true
         type: string
-        default: 'latest'
+        default: "latest"
 
 env:
   REGISTRY: ghcr.io
@@ -23,6 +23,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Get short commit hash
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -45,6 +49,8 @@ jobs:
           build-args: |
             BASE_VERSION=${{ inputs.base_version }}
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.base_version }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.base_version }}-latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.base_version }}-${{ steps.vars.outputs.sha_short }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
