@@ -12,3 +12,5 @@ RUN mkdir -p /var/lib/apt/lists/partial \
     && curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
     && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/nodesource.list
+
+USER openhands
