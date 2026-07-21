@@ -18,3 +18,6 @@ RUN mkdir -p /var/lib/apt/lists/partial \
 USER openhands
 
 RUN npm config set registry https://registry.npmmirror.com
+
+# Configure Git
+RUN git config --global --add safe.directory '*'&&git config --global core.fileMode false
