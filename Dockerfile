@@ -2,7 +2,7 @@ ARG CODE_SERVER_TAG=latest
 FROM codercom/code-server:${CODE_SERVER_TAG}
 
 # 修改扩展市场
-# ENV EXTENSIONS_GALLERY={"serviceUrl":"https://marketplace.visualstudio.com/_apis/public/gallery","cacheUrl":"https://vscode.blob.core.windows.net/gallery/index","itemUrl":"https://marketplace.visualstudio.com/items"}
+ENV EXTENSIONS_GALLERY={\"serviceUrl\":\"https://marketplace.visualstudio.com/_apis/public/gallery\",\"cacheUrl\":\"https://vscode.blob.core.windows.net/gallery/index\",\"itemUrl\":\"https://marketplace.visualstudio.com/items\"}
 
 SHELL ["/bin/bash", "-c"]
 
