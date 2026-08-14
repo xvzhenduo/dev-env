@@ -40,7 +40,10 @@ jobs:
       - name: Get code-server version
         id: version
         run: |
-          VERSION="$(docker run --rm "codercom/code-server:${{ github.event.inputs.tag }}" code-server --version 2>/dev/null | head -n1 | awk '{print $1}' | tr -d 'v')"
+          VERSION="$(docker run --rm "codercom/code-server:${{ github.event.inputs.tag }}" code-server --version 2>/dev/null | grep -oiE 'v?[0-9]+\.[0-9]+\.[0-9]+' | head -n1 | tr -d 'v')"
+          if [ -z "$VERSION" ]; then
+            VERSION="$(echo '${{ github.event.inputs.tag }}' | tr -d 'v')"
+          fi
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
 
       - name: Get short commit hash
