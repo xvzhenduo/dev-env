@@ -11,3 +11,6 @@ services:
       - ./local:/home/coder/.local
       - ./config:/home/coder/.config
       - ./project:/home/coder/project
+      # create folder on host with:
+      # mkdir -p local config project
+      # sudo chown -R 1000:1000 local config project
